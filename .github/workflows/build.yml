@@ -24,6 +24,8 @@ jobs:
     steps:
     - name: checkout project
       uses: actions/checkout@v2
+      with:
+        persist-credentials: false
       # run: |
       #   # git config --global credential.helper store
       #   # cat $HOME/.gitconfig
