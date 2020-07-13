@@ -51,7 +51,7 @@ jobs:
 
     - name: push changes to master
       run: |
-        remote_repo="https://aksjain0:${{secrets.FIRST_ACCESS_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
+        remote_repo="https://aksjain0:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
         echo ${remote_repo}
         git push -f "$remote_repo" HEAD:master
 
