@@ -49,14 +49,14 @@ jobs:
         git add -f .nuxt
         git commit -m "build:prod" -a --allow-empty
 
-    - name: push changes to master
-      run: |
-        remote_repo="https://aksjain0:${{secrets.FIRST_ACCESS_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
-        echo ${remote_repo}
-        git push -f "$remote_repo" HEAD:master
-
-
     # - name: push changes to master
-    #   uses: ad-m/github-push-action@master
-    #   with:
-    #     github_token: ${{ secrets.FIRST_ACCESS_TOKEN }}
+    #   run: |
+    #     remote_repo="https://aksjain0:${{secrets.FIRST_ACCESS_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
+    #     echo ${remote_repo}
+    #     git push -f "$remote_repo" HEAD:master
+
+
+    - name: push changes to master
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.FIRST_ACCESS_TOKEN }}
