@@ -59,4 +59,4 @@ jobs:
     - name: push changes to master
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.FIRST_ACCESS_TOKEN }}
+        github_token: ${{ secrets.SECOND_ACCESS_TOKEN }}
