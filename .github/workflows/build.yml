@@ -1,0 +1,62 @@
+name: TestAction
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  my_first_job:
+    name: My first job
+    runs-on: ubuntu-18.04
+    if: "contains(github.event.head_commit.message, '–release–')"
+    steps:
+    - name: Print s greeting
+      env:
+        MY_VAR: Hi there! My name is
+        FULL_NAME: Akshay Jain
+      run: echo $MY_VAR $FULL_NAME first
+
+  build:
+    name: Build
+    runs-on: ubuntu-18.04
+    if: "contains(github.event.head_commit.message, '-release-')"
+    steps:
+    - name: checkout project
+      uses: actions/checkout@v2
+      # run: |
+      #   # git config --global credential.helper store
+      #   # cat $HOME/.gitconfig
+      #   # git clone https://x-access-token:${{ secrets.FIRST_ACCESS_TOKEN }}@github.com/aksJain0/learning_nuxt.git
+      #   # cat $HOME/.gitconfig
+      #   # cat $HOME/.git-credentials
+
+    # - name: setup node
+    #   uses: actions/setup-node@v1
+    #   with:
+    #     node-version: '10.x'
+
+    # - name: install yarn and build
+    #   run: npm install -g yarn && yarn install && yarn build
+      
+    - name: commit files
+      run: |
+        # cd learning_nuxt        
+        rm -rf .nuxt
+        touch .nuxt
+        git config --local user.email "aakshay1294@gmail.com"
+        git config --local user.name "aksjain0"
+        git add -f .nuxt
+        git commit -m "build:prod" -a --allow-empty
+
+    - name: push changes to master
+      run: |
+        remote_repo="https://aksjain0:${{secrets.FIRST_ACCESS_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
+        echo ${remote_repo}
+        git push -f "$remote_repo" HEAD:master
+
+
+    # - name: push changes to master
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.FIRST_ACCESS_TOKEN }}
